@@ -23,6 +23,20 @@ The first version exposes halo/glow controls. Spotlight (screen dimming) and cli
 
 ## Install on Ubuntu
 
+### Debian package
+
+Download `pointer-lumen_0.1.0-1_all.deb` from Releases. In the download folder, run:
+
+```bash
+sudo apt install ./pointer-lumen_0.1.0-1_all.deb
+```
+
+The package installs system-wide in `/usr/share/gnome-shell/extensions/` and `/usr/share/icons/`; APT manages dependencies. It requires GNOME Shell 50 and is intended for Wayland. Log out and back in, then enable the extension and open settings with the commands below. Installation does not enable the extension or apply a cursor automatically.
+
+Use one installation format. Existing user-local ZIP installations take precedence over the system-wide extension; the Debian package does not modify them. Restore your original cursor before removing the package through your package manager.
+
+### User-local ZIP
+
 Extract the release ZIP into a folder. Open a terminal inside that folder, in your normal GNOME Wayland desktop session, and run:
 
 ```bash
@@ -90,3 +104,5 @@ python build/build-themes.py \
 Use `--python-packages /path/to/packages` only when extra Python dependencies are installed outside the current interpreter. The release includes the corresponding Bibata SVG/config sources under `source/bibata/`, which may be passed as `--bibata-source`. Intermediate PNGs remain under `artifacts/build-cache/`. Verify with `python tests/test_themes.py`; set `BIBATA_SOURCE` to your source directory when building on another machine.
 
 Run cursor settings and opacity behavior tests with `node --test --test-isolation=none tests/cursor-settings.test.mjs tests/render-highlight.test.mjs`. Package the release with `python build/package.py --bibata /path/to/Bibata_Cursor --output /path/to/pointer-lumen-v0.1.0-ubuntu.zip`. These commands are for development only.
+
+After building the themes, create the Debian format with `python build/package-deb.py --output artifacts/pointer-lumen_0.1.0-1_all.deb` and validate it with `python tests/test_deb.py`. The builder uses Python's standard library and the Debian 2.0 archive format. Its schema is installed globally and compiled by GLib's package trigger; there are no maintainer scripts that alter user settings. Both formats share the same extension code and prebuilt themes.

@@ -1,0 +1,34 @@
+name: Validate release packages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  packages:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Download published preview packages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download v0.1.0 --repo LincolnGothic/pointer-lumen --pattern '*.deb' --pattern '*.zip' --pattern '*.sha256'
+          sha256sum --check *.sha256
+      - name: Validate Debian metadata, extraction and global schema
+        run: |
+          dpkg-deb --info pointer-lumen_0.1.0-1_all.deb
+          dpkg-deb --contents pointer-lumen_0.1.0-1_all.deb > deb-contents.txt
+          dpkg-deb --extract pointer-lumen_0.1.0-1_all.deb deb-root
+          glib-compile-schemas --strict deb-root/usr/share/glib-2.0/schemas
+          GSETTINGS_SCHEMA_DIR="$PWD/deb-root/usr/share/glib-2.0/schemas" gsettings list-keys org.gnome.shell.extensions.cursor-glow
+          test -L deb-root/usr/share/icons/CursorGlow-Modern-blue/cursors/default
+          test -f deb-root/usr/share/icons/CursorGlow-Modern-blue/cursors/left_ptr
+      - name: Validate ZIP schemas and cursor behavior
+        run: |
+          unzip -q pointer-lumen-v0.1.0-ubuntu.zip
+          glib-compile-schemas --strict cursor-glow-v1/extension/schemas
+          cd cursor-glow-v1
+          node --test tests/cursor-settings.test.mjs tests/render-highlight.test.mjs
+          POINTER_LUMEN_DEB="$GITHUB_WORKSPACE/pointer-lumen_0.1.0-1_all.deb" python3 tests/test_deb.py -v
