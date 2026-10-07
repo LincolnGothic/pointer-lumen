@@ -1,0 +1,14 @@
+{
+  "name": "Pointer Lumen",
+  "description": "Twelve pointer color presets and a following glow for GNOME demonstrations.",
+  "uuid": "cursor-glow@local",
+  "shell-version": [
+    "50"
+  ],
+  "version": 1,
+  "url": "https://github.com/LincolnGothic/pointer-lumen",
+  "settings-schema": "org.gnome.shell.extensions.cursor-glow",
+  "donations": {
+    "github": "szymonwilczek"
+  }
+}

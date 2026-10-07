@@ -1,0 +1,18 @@
+{
+  "colors": [
+    {"id":"black","label":"Black","hex":"#171717","outline":"#FFFFFF"},
+    {"id":"white","label":"White","hex":"#FFFFFF","outline":"#171717"},
+    {"id":"amber","label":"Amber","hex":"#D99B18","outline":"#FFFFFF"},
+    {"id":"red","label":"Red","hex":"#D93440","outline":"#FFFFFF"},
+    {"id":"orange","label":"Orange","hex":"#EE7623","outline":"#FFFFFF"},
+    {"id":"yellow","label":"Yellow","hex":"#F4D64E","outline":"#171717"},
+    {"id":"green","label":"Green","hex":"#238C50","outline":"#FFFFFF"},
+    {"id":"cyan","label":"Cyan","hex":"#44D5DC","outline":"#171717"},
+    {"id":"blue","label":"Blue","hex":"#2772D5","outline":"#FFFFFF"},
+    {"id":"purple","label":"Purple","hex":"#874FC5","outline":"#FFFFFF"},
+    {"id":"pink","label":"Pink","hex":"#D7478E","outline":"#FFFFFF"},
+    {"id":"gray","label":"Gray","hex":"#A5A5A5","outline":"#171717"}
+  ],
+  "styles": [{"id":"Modern","label":"Modern (rounded)"},{"id":"Original","label":"Original (sharp)"}],
+  "sizes": [24,32,48]
+}
